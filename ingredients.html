@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Ingredients</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e7f3fe;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding-top: 50px; /* Add padding to move content down */
+        }
+
+        header {
+            margin-bottom: 30px; /* Increased margin for spacing */
+        }
+
+        h1 {
+            font-size: 2.5em; /* Larger heading size */
+            color: #1e90ff; /* Bright blue color */
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #0a0b0c; /* Darker gray for better readability */
+            margin-top: 75px;
+            font-weight: bold;
+        }
+
+        .ingredient-input {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 40px; /* Increased padding for larger box */
+            width: 400px; /* Wider width */
+            max-width: 90%; /* Responsive width */
+            margin: auto; /* Center alignment */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px); /* Full width with padding */
+            padding: 15px; /* Increased padding for comfort */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 1.1em; /* Slightly larger font size */
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #1e90ff; /* Change border color on focus */
+        }
+
+        button {
+            background-color: #32cd32; /* Bright green button */
+            color: white;
+            padding: 15px; /* Increased button padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em; /* Slightly larger font size */
+            transition: background-color 0.3s;
+            width: 100%; /* Button takes full width */
+        }
+
+        button:hover {
+            background-color: #28a745; /* Darker green on hover */
+        }
+
+        #recipe-output {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Enter Available Ingredients</h1>
+        <p id="category-message"></p> <!-- Message based on category -->
+    </header>
+
+    <section class="ingredient-input">
+        <form id="ingredient-form">
+            <label for="ingredients">Enter ingredients (comma-separated):</label>
+            <input type="text" id="ingredients" name="ingredients" placeholder="e.g. tomato, garlic, onion" required>
+            <button type="submit">Get Recipe</button>
+        </form>
+        <div id="recipe-output"></div>
+    </section>
+
+    <script>
+        // Function to get query parameter by name
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Get the category from the URL
+        const category = getQueryParam('category');
+        const categoryMessage = category ? `You selected: ${category.charAt(0).toUpperCase() + category.slice(1)} Recipes` : '';
+        document.getElementById('category-message').innerText = categoryMessage;
+
+        document.getElementById('ingredient-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get ingredients input
+            const ingredients = document.getElementById('ingredients').value;
+
+            // Simulate getting a recipe based on the selected category
+            const sampleRecipe = `Based on your ingredients (${ingredients}), we recommend trying a ${category.charAt(0).toUpperCase() + category.slice(1)} recipe!`;
+
+            // Display the recommended recipe
+            document.getElementById('recipe-output').innerHTML = `<h3>Recommended Recipe:</h3><p>${sampleRecipe}</p>`;
+        });
+    </script>
+</body>
+</html>
